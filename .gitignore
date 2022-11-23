@@ -3,3 +3,5 @@
 !/main
 *.exe
 *.o
+.DS_Store
+.DS_Store?
