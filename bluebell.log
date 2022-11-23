@@ -1,0 +1,5 @@
+{"level":"INFO","time":"2022-11-23T18:47:22.355+0800","caller":"logger/logger.go:68","msg":"/","status":200,"method":"GET","path":"/","query":"","ip":"127.0.0.1","user-agent":"curl/7.64.1","errors":"","cost":0.000010205}
+{"level":"INFO","time":"2022-11-23T18:49:26.086+0800","caller":"logger/logger.go:68","msg":"/","status":200,"method":"GET","path":"/","query":"","ip":"127.0.0.1","user-agent":"curl/7.64.1","errors":"","cost":0.000016383}
+{"level":"INFO","time":"2022-11-23T18:53:09.183+0800","caller":"logger/logger.go:68","msg":"/","status":200,"method":"GET","path":"/","query":"","ip":"127.0.0.1","user-agent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:107.0) Gecko/20100101 Firefox/107.0","errors":"","cost":8.002709438}
+{"level":"INFO","time":"2022-11-23T18:53:48.873+0800","caller":"logger/logger.go:68","msg":"/","status":200,"method":"GET","path":"/","query":"","ip":"127.0.0.1","user-agent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:107.0) Gecko/20100101 Firefox/107.0","errors":"","cost":5.002770446}
+{"level":"INFO","time":"2022-11-23T18:54:07.315+0800","caller":"watch/viper.go:18","msg":"config file changed","name":"config.yaml"}

@@ -1,4 +1,4 @@
-package bluebell
+package main
 
 // web脚手架
 // 1.加载配置
@@ -9,10 +9,10 @@ package bluebell
 // 6.启动服务（优雅关机）
 
 import (
-	_ "bluebell/cmd"
+	_ "bluebell/cmd" // 配置命令行参数
+	"bluebell/config"
 	_ "bluebell/config" // 加载配置
 	_ "bluebell/logger" // 初始化日志
-
 	//_ "bluebell/dao/mysql" // 初始化db
 	//_ "bluebell/dao/redis" // 初始化redis
 
@@ -44,7 +44,7 @@ func main() {
 
 	// 优雅关机
 	srv := &http.Server{
-		Addr:    ":8080",
+		Addr:    fmt.Sprintf(":%d", config.Conf.Port),
 		Handler: router,
 	}
 
@@ -65,9 +65,9 @@ func main() {
 	<-quit                                               // 阻塞在此，当接收到上述两种信号时才会往下执行
 	log.Println("Shutdown Server ...")
 	// 创建一个5秒超时的context
-	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
-	// 5秒内优雅关闭服务（将未处理完的请求处理完再关闭服务），超过5秒就超时退出
+	// 5秒内优雅关闭服务（将未处理完的请求处理完再关闭服务），超过10秒就超时退出
 	if err := srv.Shutdown(ctx); err != nil {
 		log.Fatal("Server Shutdown: ", err)
 	}
