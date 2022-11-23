@@ -1,5 +1,6 @@
 .idea
 .yaml
+.log
 !/main
 *.exe
 *.o
