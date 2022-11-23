@@ -1,2 +1,5 @@
 .idea
 .yaml
+!/main
+*.exe
+*.o
