@@ -5,6 +5,10 @@ import (
 	"fmt"
 )
 
+var (
+	SnowFlakeConfig = SnowFlake{StartTime: "2022-11-23", MachineID: 1}
+)
+
 // 启动配置项
 type AppConfig struct {
 	Port         int    `json:"port" mapstructure:"port"`
@@ -43,6 +47,11 @@ type RedisConfig struct {
 	Port     int    `json:"port" mapstructure:"port"`
 	DB       int    `json:"db" mapstructure:"db"`
 	PoolSize int    `json:"pool_size" mapstructure:"pool_size"`
+}
+
+type SnowFlake struct {
+	StartTime string
+	MachineID int64
 }
 
 // Conf 全局配置变量

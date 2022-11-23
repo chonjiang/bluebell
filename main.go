@@ -13,6 +13,7 @@ import (
 	"bluebell/config"
 	_ "bluebell/config" // 加载配置
 	_ "bluebell/logger" // 初始化日志
+	_ "bluebell/tools/snowflake"
 	//_ "bluebell/dao/mysql" // 初始化db
 	//_ "bluebell/dao/redis" // 初始化redis
 
