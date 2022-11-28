@@ -1,4 +1,4 @@
-package mysql
+package database
 
 import (
 	"bluebell/config"
@@ -25,4 +25,9 @@ func Close() {
 	if err != nil {
 		zap.L().Info("mysql close failed", zap.String("error", err.Error()))
 	}
+}
+
+// GetDBClient 因为db对象不会对全局暴露，所以要通过方法对外暴露
+func GetDBClient() *sqlx.DB{
+	return db
 }

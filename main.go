@@ -12,13 +12,13 @@ import (
 	_ "bluebell/cmd" // 配置命令行参数
 	"bluebell/config"
 	_ "bluebell/config" // 加载配置
+	"bluebell/database"
 	_ "bluebell/logger" // 初始化日志
 	_ "bluebell/tools/snowflake"
-	//_ "bluebell/dao/mysql" // 初始化db
-	//_ "bluebell/dao/redis" // 初始化redis
+	//_ "bluebell/database" // 初始化db
+	//_ "bluebell/redis" // 初始化redis
 
-	"bluebell/dao/mysql"
-	"bluebell/dao/redis"
+	"bluebell/redis"
 	"bluebell/routes"
 	"bluebell/watch"
 	"context"
@@ -37,7 +37,7 @@ func main() {
 	if err != nil {
 		panic(fmt.Sprintf("watch config file failed : %v", err))
 	}
-	defer mysql.Close()
+	defer database.Close()
 	defer redis.Close()
 	defer zap.L().Sync()
 	// 注册路由
