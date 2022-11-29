@@ -3,6 +3,7 @@ package user
 import (
 	"bluebell/config"
 	"bluebell/logic"
+	"bluebell/middlewares"
 	"bluebell/models"
 	"bluebell/tools"
 	v "bluebell/tools/validator"
@@ -39,7 +40,7 @@ func RegisterHandler(c *gin.Context) {
 	err := logic.Register(user)
 
 	if err != nil {
-		zap.L().Error("register failed, err", zap.Error(err))
+		zap.L().Error("register failed", zap.Error(err))
 		code := config.CodeServerBusy
 		if errors.Is(err, config.ErrorUserExist) {
 			code = config.CodeUserExist
@@ -76,7 +77,7 @@ func LoginHandler(c *gin.Context) {
 	user.Password = params.Password
 	loginUser, err := logic.Login(user)
 	if err != nil {
-		zap.L().Error("register failed, err", zap.Error(err))
+		zap.L().Error("login failed", zap.Error(err))
 		tools.ResponseErrorWithMsg(c, config.CodeInvalidPassword, err.Error())
 		return
 	}
@@ -86,5 +87,44 @@ func LoginHandler(c *gin.Context) {
 	_ = json.Unmarshal(data, &m)
 
 	tools.ResponseSuccess(c, m)
+	return
+}
+
+// GetLoginInfo 获取登录用户信息
+func GetLoginInfo(c *gin.Context) {
+	_userName, ok := c.Get(middlewares.ContextUserNameKey)
+	if !ok {
+		tools.ResponseErrorWithMsg(c, config.CodeNotLogin, config.CodeNotLogin.Msg())
+		return
+	}
+	userName, ok := _userName.(string)
+	if !ok{
+		tools.ResponseErrorWithMsg(c, config.CodeNotLogin, config.CodeNotLogin.Msg())
+		return
+	}
+
+	_userID, ok := c.Get(middlewares.ContextUserIDKey)
+	if !ok {
+		tools.ResponseErrorWithMsg(c, config.CodeNotLogin, config.CodeNotLogin.Msg())
+		return
+	}
+	userID, ok := _userID.(int64)
+	if !ok{
+		tools.ResponseErrorWithMsg(c, config.CodeNotLogin, config.CodeNotLogin.Msg())
+		return
+	}
+
+	user := &models.User{
+		UserId: userID,
+		Username: userName,
+	}
+
+	userInfo, err := logic.GetUserInfo(user)
+	if err != nil {
+		tools.ResponseErrorWithMsg(c, config.CodeUserExist, err.Error())
+		return
+	}
+
+	tools.ResponseSuccess(c, userInfo)
 	return
 }

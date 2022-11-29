@@ -7,6 +7,7 @@ import (
 	"bluebell/tools/snowflake"
 	"database/sql"
 	"log"
+	"strings"
 )
 
 // Register
@@ -49,4 +50,36 @@ func Login(loginUser *models.User) (user *models.User, err error) {
 		return nil, config.ErrorPasswordWrong
 	}
 	return loginUser, nil
+}
+
+// GetUserInfo
+func GetUserInfo(user *models.User) (loginUser *models.User, err error) {
+	conditions := []string{}
+	args := []interface{}{}
+
+	if user.Username != "" {
+		conditions = append(conditions, "username=?")
+		args = append(args, user.Username)
+	}
+
+	if user.UserId != 0 {
+		conditions = append(conditions, "user_id=?")
+		args = append(args, user.UserId)
+	}
+
+	if user.Id != 0 {
+		conditions = append(conditions, "id=?")
+		args = append(args, user.Id)
+	}
+
+	res, err := models.Find(strings.Join(conditions, " and "), args...)
+	if err != nil {
+		if err == sql.ErrNoRows {
+			// 用户不存在
+			return nil, config.ErrorUserNotExist
+		}
+		return nil, err
+	}
+
+	return res[0], nil
 }
