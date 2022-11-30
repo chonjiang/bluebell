@@ -31,3 +31,7 @@ func Close() {
 		zap.L().Info("mysql close failed", zap.String("error", err.Error()))
 	}
 }
+
+func GetClient() *redis.Client {
+	return rdb
+}
