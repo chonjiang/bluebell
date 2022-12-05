@@ -25,7 +25,7 @@ RUN go build -o bubble .
 ###################
 # 接下来创建一个小镜像
 ###################
-FROM scratch
+FROM debian:stretch-slim
 
 # 复制静态文件到容器中
 COPY config.yaml .
