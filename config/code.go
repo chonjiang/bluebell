@@ -13,6 +13,8 @@ const (
 	CodeInvalidToken      MyCode = 1006
 	CodeInvalidAuthFormat MyCode = 1007
 	CodeNotLogin          MyCode = 1008
+
+	CodeRateLimit        MyCode = 1009
 )
 
 var msgFlags = map[MyCode]string{
@@ -26,6 +28,8 @@ var msgFlags = map[MyCode]string{
 	CodeInvalidToken:      "无效的Token",
 	CodeInvalidAuthFormat: "认证格式有误",
 	CodeNotLogin:          "未登录",
+
+	CodeRateLimit:			"请求限流，请稍后重试",
 }
 
 func (c MyCode) Msg() string {

@@ -10,7 +10,7 @@ var db = database.GetDBClient()
 // User 针对数据库表 user 的结构体定义
 type User struct {
 	Id         int64     `json:"id" db:"id"`          // Id 类型: int64 主健字段（Primary Key） 自增长字段
-	UserId     int64     `json:"user_id" db:"user_id"`     // UserId 类型: int64
+	UserId     int64     `json:"user_id,string" db:"user_id"`     // UserId 类型: int64
 	Username   string    `json:"username" db:"username"`    // Username 类型: string
 	Password   string    `json:"password" db:"password"`    // Password 类型: string
 	Email      string    `json:"email" db:"email"`       // Email 类型: string
