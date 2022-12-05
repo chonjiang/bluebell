@@ -3,6 +3,7 @@ package config
 import (
 	"bluebell/cmd"
 	"fmt"
+	"log"
 )
 
 var (
@@ -58,7 +59,12 @@ type SnowFlake struct {
 var Conf = new(AppConfig)
 
 func init() {
-	if err := InitViper(cmd.GetConfigFileName()); err != nil {
+	filePath := cmd.GetConfigFileName()
+	if filePath == ""{
+		panic("not found the config file")
+	}
+	log.Println("config file path is:", filePath)
+	if err := InitViper(filePath); err != nil {
 		panic(fmt.Sprintf("init config failed, err:%v\n", err))
 	}
 }

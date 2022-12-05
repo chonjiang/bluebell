@@ -28,7 +28,7 @@ RUN go build -o bubble .
 FROM scratch
 
 # 复制静态文件到容器中
-COPY ./config.yaml ./
+COPY config/config.yaml .
 
 # 从builder镜像中把/dist/app 拷贝到当前目录
 COPY --from=builder /build/bubble /
