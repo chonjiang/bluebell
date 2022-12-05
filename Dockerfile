@@ -34,5 +34,4 @@ COPY config.yaml .
 COPY --from=builder /build/bubble /
 
 # 需要运行的命令
-ENTRYPOINT ["/bubble", "-config"]
-CMD ["./config.yaml"]
+ENTRYPOINT ["/bubble", "-config", "./config.yaml"]
